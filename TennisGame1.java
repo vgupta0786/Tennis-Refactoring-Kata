@@ -16,19 +16,35 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        if (player1.hasTieWith(player2)) {
+        if (findIfPlayersHasATie(player1,player2)) {
             return nameForTie();
-        } else if (player1.advantageOver(player2)) {
-            return "Advantage " + player1.getName();
-        } else if (player2.advantageOver(player1)) {
-            return "Advantage " + player2.getName();
-        } else if (player1.wonAgainst(player2)) {
-            return "Win for " + player1.getName();
-        } else if (player2.wonAgainst(player1)) {
-            return "Win for " + player2.getName();
+        } else if (findIfPlayersAreInAdvantage(player1,player2)) {
+            return "Advantage " + playerInAdvantage().getName();
+        }else if (findIf1PlayerWinOverOther(player1,player2)) {
+            return "Win for " + wonAgainst().getName();
         } else {
             return nameWhenPlayersScoreBelow4();
         }
+    }
+    
+    public static Boolean findIfPlayersHasATie(Player player1, Player player2) {
+               return player1.hasTieWith(player2);
+    }
+    
+    public static Boolean findIfPlayersAreInAdvantage(Player player1, Player player2) {
+        return player1.advantageOver(player2) || player2.advantageOver(player1);
+    }
+
+    private Player playerInAdvantage() {
+        return player1.advantageOver(player2) ? player1 : player2;
+    }
+    
+    public static Boolean findIf1PlayerWinOverOther(Player player1, Player player2) {
+        return player1.wonAgainst(player2) || player2.wonAgainst(player1);
+    }
+
+    private Player wonAgainst() {
+        return player1.wonAgainst(player2) ? player1 : player2;
     }
 
     private String nameWhenPlayersScoreBelow4() {
