@@ -1,11 +1,10 @@
+import java.util.List;
+import static java.util.Arrays.asList;
+
 public class TennisGame1 implements TennisGame {
 
     private Player player1;
     private Player player2;
-    private Score tie;
-    private Score normal;
-    private Score win;
-    private Score advantage;
 
     public TennisGame1(String player1, String player2) {
         this.player1 = new Player(player1);
@@ -13,28 +12,19 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == player1.getName())
-            player1.wonPoint();
-        else
-            player2.wonPoint();
+        (player1.getName() == playerName ? player1 : player2).wonPoint();
+    }
+
+    private List<Score> scores() {
+        return asList(new TieScore(player1, player2), new AdvantageScore(player1, player2),
+                new WinScore(player1, player2), new NormalScore(player1, player2));
     }
 
     public String getScore() {
-        tie = new TieScore(this.player1, this.player2);
-        if (tie.decide()) {
-            return tie.scoreName();
-        }
-        advantage = new AdvantageScore(this.player1, this.player2);
-        if (advantage.decide()) {
-            return advantage.scoreName();
-        }
-        win = new WinScore(this.player1, this.player2);
-        if (win.decide()) {
-            return win.scoreName();
-        }
-        normal = new NormalScore(this.player1, this.player2);
-        if (normal.decide()) {
-            return normal.scoreName();
+        for (Score score : scores()) {
+            if (score.decide()) {
+                return score.scoreName();
+            }
         }
         return "";
     }
