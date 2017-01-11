@@ -10,10 +10,6 @@ public class TennisGame1 implements TennisGame {
     public TennisGame1(String player1, String player2) {
         this.player1 = new Player(player1);
         this.player2 = new Player(player2);
-        tie = new TieScore(this.player1, this.player2);
-        normal = new NormalScore(this.player1, this.player2);
-        win = new WinScore(this.player1, this.player2);
-        advantage = new AdvantageScore(this.player1, this.player2);
     }
 
     public void wonPoint(String playerName) {
@@ -24,14 +20,22 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
+        tie = new TieScore(this.player1, this.player2);
         if (tie.decide()) {
             return tie.scoreName();
-        } else if (advantage.decide()) {
+        }
+        advantage = new AdvantageScore(this.player1, this.player2);
+        if (advantage.decide()) {
             return advantage.scoreName();
-        } else if (win.decide()) {
+        }
+        win = new WinScore(this.player1, this.player2);
+        if (win.decide()) {
             return win.scoreName();
-        } else {
+        }
+        normal = new NormalScore(this.player1, this.player2);
+        if (normal.decide()) {
             return normal.scoreName();
         }
+        return "";
     }
 }
