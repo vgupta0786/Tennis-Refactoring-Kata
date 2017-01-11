@@ -16,15 +16,15 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        if (scoresAreSame()) {
+        if (player1.hasTieWith(player2)) {
             return nameForTie();
-        } else if (advantagePlayer1()) {
+        } else if (player1.advantageOver(player2)) {
             return "Advantage " + player1.getName();
-        } else if (advantagePlayer2()) {
+        } else if (player2.advantageOver(player1)) {
             return "Advantage " + player2.getName();
-        } else if (winForPlayer1()) {
+        } else if (player1.wonAgainst(player2)) {
             return "Win for " + player1.getName();
-        } else if (winForPlayer2()) {
+        } else if (player2.wonAgainst(player1)) {
             return "Win for " + player2.getName();
         } else {
             return nameWhenPlayersScoreBelow4();
@@ -39,22 +39,6 @@ public class TennisGame1 implements TennisGame {
     private String nameForTie() {
         return player1.getScore() > 2 ? "Deuce" : nameFor(player1.getScore()).append("-")
                 .append("All").toString();
-    }
-
-    private boolean winForPlayer1() {
-        return anyPlayerScoreAbove4() && player1.getScore() - player2.getScore() >= 2;
-    }
-
-    private boolean winForPlayer2() {
-        return anyPlayerScoreAbove4() && player2.getScore() - player1.getScore() >= 2;
-    }
-
-    private boolean advantagePlayer2() {
-        return anyPlayerScoreAbove4() && player1.getScore() - player2.getScore() == -1;
-    }
-
-    private boolean advantagePlayer1() {
-        return anyPlayerScoreAbove4() && player1.getScore() - player2.getScore() == 1;
     }
 
     private StringBuilder nameFor(int currentPlayerScore) {
@@ -74,13 +58,5 @@ public class TennisGame1 implements TennisGame {
                 break;
         }
         return name;
-    }
-
-    private boolean anyPlayerScoreAbove4() {
-        return player1.getScore() >= 4 || player2.getScore() >= 4;
-    }
-
-    private boolean scoresAreSame() {
-        return player1.getScore() == player2.getScore();
     }
 }
