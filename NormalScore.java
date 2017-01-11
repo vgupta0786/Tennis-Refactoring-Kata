@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class NormalScore extends Score {
 
     public NormalScore(Player player1, Player player2) {
@@ -11,27 +14,16 @@ public class NormalScore extends Score {
 
     @Override
     public String scoreName() {
-        return nameFor(player1.getScore()).append("-").append(nameFor(player2.getScore()))
-                .toString();
+        return nameFor().get(player1.getScore()) + "-" + nameFor().get(player2.getScore());
     }
 
-    private StringBuilder nameFor(int currentPlayerScore) {
-        StringBuilder name = new StringBuilder();
-        switch (currentPlayerScore) {
-            case 0:
-                name.append("Love");
-                break;
-            case 1:
-                name.append("Fifteen");
-                break;
-            case 2:
-                name.append("Thirty");
-                break;
-            case 3:
-                name.append("Forty");
-                break;
-        }
-        return name;
+    private Map<Integer, String> nameFor() {
+        Map<Integer, String> nameForScore = new HashMap<Integer, String>();
+        nameForScore.put(0, "Love");
+        nameForScore.put(1, "Fifteen");
+        nameForScore.put(2, "Thirty");
+        nameForScore.put(3, "Forty");
+        return nameForScore;
     }
 
 }
