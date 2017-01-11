@@ -22,13 +22,13 @@ public class TennisGame1 implements TennisGame {
     public String getScore() {
         if (scoresAreSame()) {
             return nameForTie();
-        } else if (anyPlayerScoreAbove4() && advantagePlayer1()) {
+        } else if (advantagePlayer1()) {
             return "Advantage "+PLAYER1_NAME;
-        } else if (anyPlayerScoreAbove4() && advantagePlayer2()) {
+        } else if ( advantagePlayer2()) {
             return "Advantage "+PLAYER2_NAME;
-        } else if (anyPlayerScoreAbove4() && winForPlayer1()) {
+        } else if (winForPlayer1()) {
             return "Win for "+PLAYER1_NAME;
-        } else if (anyPlayerScoreAbove4() && winForPlayer2()) {
+        } else if (winForPlayer2()) {
             return "Win for "+PLAYER2_NAME;
         } else {
             return nameWhenPlayersScoreBelow4();
@@ -36,7 +36,7 @@ public class TennisGame1 implements TennisGame {
     }
     
     private boolean winForPlayer2() {
-        return player2Score - player1Score >= 2;
+        return anyPlayerScoreAbove4() && player2Score - player1Score >= 2;
     }
 
     private String nameWhenPlayersScoreBelow4() {
@@ -49,15 +49,15 @@ public class TennisGame1 implements TennisGame {
     }
 
     private boolean winForPlayer1() {
-        return player1Score - player2Score >= 2;
+        return anyPlayerScoreAbove4() && player1Score - player2Score >= 2;
     }
 
     private boolean advantagePlayer2() {
-        return player1Score - player2Score == -1;
+        return anyPlayerScoreAbove4() && player1Score - player2Score == -1;
     }
 
     private boolean advantagePlayer1() {
-        return player1Score - player2Score == 1;
+        return anyPlayerScoreAbove4() && player1Score - player2Score == 1;
     }
 
     private StringBuilder nameFor(int currentPlayerScore) { 
