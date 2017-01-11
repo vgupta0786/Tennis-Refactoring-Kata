@@ -55,23 +55,29 @@ public class TennisGame1 implements TennisGame {
                     score += "-";
                     currentPlayerScore = player2Score;
                 }
-                switch (currentPlayerScore) {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
+                score += nameForCurrentPlayerScore(currentPlayerScore);
             }
         }
         return score;
+    }
+
+    private String nameForCurrentPlayerScore(int currentPlayerScore) {
+        String name="";
+        switch (currentPlayerScore) {
+            case 0:
+                name += "Love";
+                break;
+            case 1:
+                name += "Fifteen";
+                break;
+            case 2:
+                name += "Thirty";
+                break;
+            case 3:
+                name += "Forty";
+                break;
+        }
+        return name;
     }
 
     private boolean anyPlayerScoreAbove4() {
