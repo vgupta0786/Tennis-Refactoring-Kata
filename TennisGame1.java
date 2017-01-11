@@ -1,6 +1,7 @@
 public class TennisGame1 implements TennisGame {
 
     private static final String PLAYER1_NAME = "player1";
+    private static final String PLAYER2_NAME = "player2";
     private int player1Score;
     private int player2Score;
     private String player1;
@@ -19,22 +20,34 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
         if (scoresAreSame()) {
-            score = player1Score > 2 ? "Deuce" : nameFor(player1Score).append("-").append("All")
-                    .toString();
+            return nameForTie();
         } else if (anyPlayerScoreAbove4()) {
-            if (advantagePlayer1())
-                score = "Advantage player1";
-            else if (advantagePlayer2())
-                score = "Advantage player2";
-            else if (winForPlayer1())
-                score = "Win for player1";
-            else
-                score = "Win for player2";
+            return nameWhenAtleast1PlayerScoreAbove4();
         } else {
-            score = nameFor(player1Score).append("-").append(nameFor(player2Score)).toString();
+            return nameWhenPlayersScoreBelow4();
         }
+    }
+
+    private String nameWhenPlayersScoreBelow4() {
+        return nameFor(player1Score).append("-").append(nameFor(player2Score)).toString();
+    }
+
+    private String nameForTie() {
+        return player1Score > 2 ? "Deuce" : nameFor(player1Score).append("-").append("All")
+                .toString();
+    }
+
+    private String nameWhenAtleast1PlayerScoreAbove4() {
+        String score;
+        if (advantagePlayer1())
+            score = "Advantage "+PLAYER1_NAME;
+        else if (advantagePlayer2())
+            score = "Advantage "+PLAYER2_NAME;
+        else if (winForPlayer1())
+            score = "Win for "+PLAYER1_NAME;
+        else
+            score = "Win for "+PLAYER2_NAME;
         return score;
     }
 
