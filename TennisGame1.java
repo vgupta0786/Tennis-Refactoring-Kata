@@ -24,12 +24,11 @@ public class TennisGame1 implements TennisGame {
             score = player1Score > 2 ? "Deuce" : nameFor(player1Score).append("-").append("All")
                     .toString();
         } else if (anyPlayerScoreAbove4()) {
-            int minusResult = player1Score - player2Score;
-            if (minusResult == 1)
+            if (advantagePlayer1())
                 score = "Advantage player1";
-            else if (minusResult == -1)
+            else if (advantagePlayer2())
                 score = "Advantage player2";
-            else if (minusResult >= 2)
+            else if (winForPlayer1())
                 score = "Win for player1";
             else
                 score = "Win for player2";
@@ -37,6 +36,18 @@ public class TennisGame1 implements TennisGame {
             score = nameFor(player1Score).append("-").append(nameFor(player2Score)).toString();
         }
         return score;
+    }
+
+    private boolean winForPlayer1() {
+        return player1Score - player2Score >= 2;
+    }
+
+    private boolean advantagePlayer2() {
+        return player1Score - player2Score == -1;
+    }
+
+    private boolean advantagePlayer1() {
+        return player1Score - player2Score == 1;
     }
 
     private StringBuilder nameFor(int currentPlayerScore) {
