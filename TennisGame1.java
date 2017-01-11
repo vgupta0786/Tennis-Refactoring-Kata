@@ -20,23 +20,9 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        int currentPlayerScore;
         if (scoresAreSame()) {
-            switch (player1Score) {
-                case 0:
-                    score = "Love-All";
-                    break;
-                case 1:
-                    score = "Fifteen-All";
-                    break;
-                case 2:
-                    score = "Thirty-All";
-                    break;
-                default:
-                    score = "Deuce";
-                    break;
-
-            }
+            score = player1Score > 2 ? "Deuce" : nameFor(player1Score).append("-").append("All")
+                    .toString();
         } else if (anyPlayerScoreAbove4()) {
             int minusResult = player1Score - player2Score;
             if (minusResult == 1)
@@ -48,9 +34,7 @@ public class TennisGame1 implements TennisGame {
             else
                 score = "Win for player2";
         } else {
-            
-            score = nameFor(player1Score).append("-").append(
-                   nameFor(player2Score)).toString();
+            score = nameFor(player1Score).append("-").append(nameFor(player2Score)).toString();
         }
         return score;
     }
