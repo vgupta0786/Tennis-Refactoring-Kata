@@ -2,10 +2,10 @@ public class TennisGame1 implements TennisGame {
 
     private Player player1;
     private Player player2;
-    private TieScore tie;
-    private NormalScore normal;
-    private WinScore win;
-    private AdvantageScore advantage;
+    private Score tie;
+    private Score normal;
+    private Score win;
+    private Score advantage;
 
     public TennisGame1(String player1, String player2) {
         this.player1 = new Player(player1);
@@ -24,11 +24,11 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        if (tie.decide(player1, player2)) {
+        if (tie.decide()) {
             return tie.scoreName();
-        } else if (advantage.decide(player1, player2)) {
+        } else if (advantage.decide()) {
             return advantage.scoreName();
-        } else if (win.decide(player1, player2)) {
+        } else if (win.decide()) {
             return win.scoreName();
         } else {
             return normal.scoreName();
