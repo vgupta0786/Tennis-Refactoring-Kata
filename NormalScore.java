@@ -8,8 +8,12 @@ public class NormalScore {
         this.player1 = player1;
         this.player2 = player2;
     }
-
-    public String nameWhenPlayersScoreBelow4() {
+    
+    public Boolean decide(Player player1, Player player2) {
+              return player1.getScore() <= 3 && player2.getScore() <= 3;
+    }
+    
+    public String scoreName() {
         return nameFor(player1.getScore()).append("-").append(nameFor(player2.getScore()))
                 .toString();
     }

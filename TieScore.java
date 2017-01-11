@@ -8,11 +8,11 @@ public class TieScore {
         this.player2 = player2;
     }
 
-    public Boolean findIfPlayersHasATie(Player player1, Player player2) {
+    public Boolean decide(Player player1, Player player2) {
         return player1.hasTieWith(player2);
     }
 
-    public String nameForTie() {
+    public String scoreName() {
         return player1.getScore() > 2 ? "Deuce" : nameFor(player1.getScore()).append("-")
                 .append("All").toString();
     }

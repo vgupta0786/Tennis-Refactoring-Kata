@@ -24,14 +24,14 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        if (tie.findIfPlayersHasATie(player1, player2)) {
-            return tie.nameForTie();
-        } else if (advantage.findIfPlayersAreInAdvantage(player1, player2)) {
-            return "Advantage " + advantage.playerInAdvantage().getName();
-        } else if (win.findIf1PlayerWinOverOther(player1, player2)) {
-            return "Win for " + win.wonAgainst().getName();
+        if (tie.decide(player1, player2)) {
+            return tie.scoreName();
+        } else if (advantage.decide(player1, player2)) {
+            return advantage.scoreName();
+        } else if (win.decide(player1, player2)) {
+            return win.scoreName();
         } else {
-            return normal.nameWhenPlayersScoreBelow4();
+            return normal.scoreName();
         }
     }
 }
