@@ -48,33 +48,27 @@ public class TennisGame1 implements TennisGame {
             else
                 score = "Win for player2";
         } else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1)
-                    currentPlayerScore = player1Score;
-                else {
-                    score += "-";
-                    currentPlayerScore = player2Score;
-                }
-                score += nameForCurrentPlayerScore(currentPlayerScore);
-            }
+            
+            score = nameFor(player1Score).append("-").append(
+                   nameFor(player2Score)).toString();
         }
         return score;
     }
 
-    private String nameForCurrentPlayerScore(int currentPlayerScore) {
-        String name="";
+    private StringBuilder nameFor(int currentPlayerScore) {
+        StringBuilder name = new StringBuilder();
         switch (currentPlayerScore) {
             case 0:
-                name += "Love";
+                name.append("Love");
                 break;
             case 1:
-                name += "Fifteen";
+                name.append("Fifteen");
                 break;
             case 2:
-                name += "Thirty";
+                name.append("Thirty");
                 break;
             case 3:
-                name += "Forty";
+                name.append("Forty");
                 break;
         }
         return name;
